@@ -12,7 +12,7 @@ public:
   {
 
     pub_ = create_publisher<geometry_msgs::msg::PoseStamped>(
-        "/arm_goal_pose", 10);
+        "/pre_grasp_pose", 10);
 
     timer_ = create_wall_timer(
         100ms,
@@ -35,13 +35,17 @@ private:
   void publishGoal()
   {
     geometry_msgs::msg::PoseStamped msg;
-    msg.header.frame_id = "base_link";
+    msg.header.frame_id = "world";
     msg.header.stamp = this->now();
 
-    msg.pose.position.x = 0.50;
-    msg.pose.position.y = -0.20;
-    msg.pose.position.z = 0.50;
-    msg.pose.orientation.w = 1.0;
+    msg.pose.position.x = 1.0;
+    msg.pose.position.y = 0.4;
+    msg.pose.position.z = 0.9;
+
+    msg.pose.orientation.x = 1.0;
+    msg.pose.orientation.y = 0.0;
+    msg.pose.orientation.z = 0.0;
+    msg.pose.orientation.w = 0.0;
 
     pub_->publish(msg);
     RCLCPP_INFO(get_logger(), "Published goal. Shutting down node.");

@@ -11,9 +11,9 @@ def generate_launch_description():
         package_name="crx30ia_moveit_config"
     ).to_moveit_configs()
 
-    simple_goal_node = Node(
+    move_to_pose_node = Node(
         package="crx30ia_motion_planning",
-        executable="simple_goal",
+        executable="move_to_pose",
         output="screen",
         parameters=[
             moveit_config.to_dict(),
@@ -52,9 +52,42 @@ def generate_launch_description():
         ],
     )
 
+    pick_place_node = Node(
+        package="crx30ia_motion_planning",
+        executable="pick_place",
+        output="screen",
+        parameters=[
+            moveit_config.to_dict(),
+            {"use_sim_time": True},
+        ],
+    )
+
+    grasp_node = Node(
+        package="crx30ia_motion_planning",
+        executable="grasp",
+        output="screen",
+        parameters=[
+            moveit_config.to_dict(),
+            {"use_sim_time": True},
+        ],
+    )
+
+    setup_scene_node = Node(
+        package="crx30ia_motion_planning",
+        executable="setup_scene",
+        output="screen",
+        parameters=[
+            moveit_config.to_dict(),
+            {"use_sim_time": True},
+        ],
+    )
+
     return LaunchDescription([
-        simple_goal_node,
-        publish_goal_node,
+        move_to_pose_node,
+        # grasp_node,
+        # publish_goal_node,
+        # setup_scene_node,
+        # pick_place_node,
         # trace_waypoints_node,
         # publish_waypoints_node,
     ])
