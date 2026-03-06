@@ -1,6 +1,4 @@
 from launch import LaunchDescription
-from launch.actions import RegisterEventHandler
-from launch.event_handlers import OnProcessExit
 from launch_ros.actions import Node
 from moveit_configs_utils import MoveItConfigsBuilder
 
@@ -17,15 +15,14 @@ def generate_launch_description():
         {"use_sim_time": True},
     ]
 
-    # ---------------- Nodes ----------------
-
-    setup_scene_node = Node(
+    simple_test_node = Node(
         package="crx30ia_motion_planning",
-        executable="setup_scene",
+        executable="simple_goal_test",
         output="screen",
         parameters=common_params,
     )
 
     return LaunchDescription([
-        setup_scene_node,
+        simple_test_node,
     ])
+
